@@ -1,0 +1,319 @@
+* { box-sizing: border-box; }
+
+:root {
+  --ink: #262220;
+  --muted: #6b5f57;
+  --accent: #0088CF;
+  --blue: #a9cdea;
+  --cream: #fffdfa;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--cream);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* ---- Hero ---- */
+
+.hero {
+  position: relative;
+  padding: 2.75rem 1.25rem;
+  background: var(--accent);
+  overflow: hidden;
+  text-align: center;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+}
+
+.hero-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(38,34,32,0.55), rgba(38,34,32,0.65));
+}
+
+.hero-logo {
+  position: relative;
+  z-index: 1;
+  display: block;
+  height: 56px;
+  width: auto;
+  margin: 0 auto;
+}
+
+/* ---- Quick nav ---- */
+
+.quicknav {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  white-space: nowrap;
+  background: var(--cream);
+  border-bottom: 1px solid #ece7e1;
+  padding: 0.6rem 0.9rem;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.quicknav::-webkit-scrollbar { display: none; }
+
+.quicknav a {
+  flex-shrink: 0;
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.4rem 0.85rem;
+  border: 1px solid var(--blue);
+  border-radius: 999px;
+  background: #fff;
+}
+
+.quicknav a:active {
+  background: #eaf2fa;
+}
+
+/* ---- Main content ---- */
+
+.menu-main {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 1.25rem 1rem 3rem;
+}
+
+.web-section {
+  margin-bottom: 1.75rem;
+  scroll-margin-top: 3.25rem;
+}
+
+.web-section-title {
+  font-size: 1.15rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 0 0 0.75rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 2px solid var(--blue);
+}
+
+.web-drink-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.web-drink {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 0.75rem;
+  background: #fff;
+  border: 1.5px solid var(--blue);
+  border-radius: 14px;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.web-drink:active {
+  background: #f3f8fc;
+}
+
+.web-drink-chevron {
+  flex-shrink: 0;
+  color: var(--blue);
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+.web-drink-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.web-drink-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.6rem;
+}
+
+.web-drink-name {
+  font-weight: 700;
+  font-size: 1.02rem;
+}
+
+.web-drink-price {
+  flex-shrink: 0;
+  color: var(--accent);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.web-drink-empty, .web-empty {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+/* ---- Drink detail dialog ---- */
+
+.drink-dialog {
+  position: relative;
+  padding: 0;
+  border: none;
+  border-radius: 18px;
+  width: min(92vw, 420px);
+  max-height: 85vh;
+  overflow-y: auto;
+  background: #fff;
+  color: var(--ink);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+
+  opacity: 0;
+  transform: scale(0.92) translateY(8px);
+  transition:
+    opacity 0.28s ease,
+    transform 0.28s ease,
+    overlay 0.28s ease allow-discrete,
+    display 0.28s ease allow-discrete;
+}
+
+.drink-dialog[open] {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+@starting-style {
+  .drink-dialog[open] {
+    opacity: 0;
+    transform: scale(0.92) translateY(8px);
+  }
+}
+
+.drink-dialog::backdrop {
+  background: rgba(38, 34, 32, 0);
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
+  transition:
+    background-color 0.28s ease,
+    backdrop-filter 0.28s ease,
+    -webkit-backdrop-filter 0.28s ease,
+    overlay 0.28s ease allow-discrete,
+    display 0.28s ease allow-discrete;
+}
+
+.drink-dialog[open]::backdrop {
+  background: rgba(38, 34, 32, 0.45);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+@starting-style {
+  .drink-dialog[open]::backdrop {
+    background: rgba(38, 34, 32, 0);
+    backdrop-filter: blur(0px);
+    -webkit-backdrop-filter: blur(0px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .drink-dialog,
+  .drink-dialog::backdrop {
+    transition-duration: 0.01ms;
+  }
+}
+
+.dialog-close {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  z-index: 1;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(38, 34, 32, 0.55);
+  color: #fff;
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.dialog-img {
+  display: block;
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.dialog-body {
+  padding: 1.25rem;
+}
+
+.drink-dialog:not(:has(.dialog-img)) .dialog-body {
+  padding-top: 2.75rem;
+}
+
+.dialog-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.75rem;
+  padding-right: 2.25rem;
+}
+
+.dialog-name {
+  margin: 0;
+  font-size: 1.3rem;
+}
+
+.dialog-desc {
+  margin: 0.5rem 0 0;
+  font-size: 0.92rem;
+  font-style: italic;
+  color: var(--muted);
+}
+
+.dialog-ext {
+  margin: 0.6rem 0 0;
+  font-size: 0.95rem;
+  color: var(--ink);
+  line-height: 1.55;
+}
+
+/* ---- Larger screens ---- */
+
+@media (min-width: 720px) {
+  .menu-main {
+    max-width: 780px;
+    padding-top: 2rem;
+  }
+
+  .hero {
+    padding: 4rem 1.5rem;
+  }
+
+  .web-drink-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.85rem;
+  }
+}

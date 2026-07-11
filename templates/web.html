@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{{ data.title }}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{{ url_for('static', filename='web.css') }}">
+</head>
+<body>
+  <header class="hero">
+    {% if data.background %}
+      <div class="hero-bg" style="background-image: url('{{ url_for('static', filename='uploads/' + data.background) }}');"></div>
+    {% endif %}
+    <img class="hero-logo" src="{{ url_for('static', filename='img/timed-out-logo.png') }}" alt="{{ data.title }}">
+  </header>
+
+  {% if data.sections %}
+    <nav class="quicknav">
+      {% for section in data.sections %}
+        <a href="#section-{{ section.name | slugify }}">{{ section.name }}</a>
+      {% endfor %}
+    </nav>
+  {% endif %}
+
+  <main class="menu-main">
+    {% for section in data.sections %}
+      <section class="web-section" id="section-{{ section.name | slugify }}">
+        <h2 class="web-section-title">{{ section.name }}</h2>
+        <ul class="web-drink-list">
+          {% for drink in section.drinks %}
+            <li>
+              <button type="button" class="web-drink" data-dialog="drink-{{ drink.id }}">
+                <div class="web-drink-body">
+                  <div class="web-drink-head">
+                    <span class="web-drink-name">{{ drink.name }}</span>
+                    {% if drink.price %}<span class="web-drink-price">{{ drink.price }}</span>{% endif %}
+                  </div>
+                </div>
+                <span class="web-drink-chevron" aria-hidden="true">&rsaquo;</span>
+              </button>
+
+              <dialog id="drink-{{ drink.id }}" class="drink-dialog">
+                <button type="button" class="dialog-close" aria-label="Close">&times;</button>
+                {% if drink.image %}
+                  <img class="dialog-img" src="{{ url_for('static', filename='uploads/' + drink.image) }}" alt="">
+                {% endif %}
+                <div class="dialog-body">
+                  <div class="dialog-head">
+                    <h3 class="dialog-name">{{ drink.name }}</h3>
+                  </div>
+                  {% if drink.description %}
+                    <p class="dialog-desc">{{ drink.description }}</p>
+                  {% endif %}
+                  {% if drink.extended_description %}
+                    <p class="dialog-ext">{{ drink.extended_description }}</p>
+                  {% endif %}
+                </div>
+              </dialog>
+            </li>
+          {% else %}
+            <li class="web-drink-empty">Nothing here yet.</li>
+          {% endfor %}
+        </ul>
+      </section>
+    {% else %}
+      <p class="web-empty">No sections yet.</p>
+    {% endfor %}
+  </main>
+  <script src="{{ url_for('static', filename='web.js') }}"></script>
+</body>
+</html>
