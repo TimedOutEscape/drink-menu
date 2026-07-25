@@ -1,6 +1,7 @@
 import json
 import os
 import re
+import subprocess
 import uuid
 
 from flask import Flask, render_template, request, redirect, url_for, flash
@@ -12,6 +13,31 @@ UPLOAD_DIR = os.path.join(BASE_DIR, "static", "uploads")
 ALLOWED_EXT = {"png", "jpg", "jpeg", "gif", "webp"}
 
 app = Flask(__name__)
+
+
+def _git_run(args):
+    return subprocess.run(
+        args,
+        cwd=BASE_DIR,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+
+
+def commit_and_push(message):
+    safe_message = re.sub(r"\s+", " ", (message or "updated menu")).strip()
+    if not safe_message:
+        safe_message = "updated menu"
+    safe_message = f"auto: {safe_message}"
+
+    _git_run(["git", "add", "-A"])
+    status = _git_run(["git", "status", "--porcelain"])
+    if not status.stdout.strip():
+        return
+
+    _git_run(["git", "commit", "-m", safe_message])
+    _git_run(["git", "push"])
 
 def slugify(text):
     slug = re.sub(r"[^a-z0-9]+", "-", text.lower()).strip("-")
@@ -77,9 +103,10 @@ def web_menu():
 def update_title():
     data = load_data()
     title = request.form.get("title", "").strip()
-    if title:
+    if title and title != data.get("title"):
         data["title"] = title
         save_data(data)
+        commit_and_push(f"changed title to {title}")
     return redirect(url_for("admin"))
 
 
@@ -90,6 +117,7 @@ def add_section():
     if name:
         data["sections"].append({"id": new_id(), "name": name, "drinks": []})
         save_data(data)
+        commit_and_push(f"added section {name}")
     return redirect(url_for("admin"))
 
 
@@ -98,17 +126,21 @@ def rename_section(section_id):
     data = load_data()
     section = find_section(data, section_id)
     name = request.form.get("name", "").strip()
-    if section and name:
+    if section and name and name != section.get("name"):
         section["name"] = name
         save_data(data)
+        commit_and_push(f"renamed section to {name}")
     return redirect(url_for("admin"))
 
 
 @app.route("/sections/<section_id>/delete", methods=["POST"])
 def delete_section(section_id):
     data = load_data()
+    section = find_section(data, section_id)
     data["sections"] = [s for s in data["sections"] if s["id"] != section_id]
-    save_data(data)
+    if section:
+        save_data(data)
+        commit_and_push(f"deleted section {section.get('name', section_id)}")
     return redirect(url_for("admin"))
 
 
@@ -123,6 +155,8 @@ def move_section(section_id):
         if 0 <= new_idx < len(sections):
             sections[idx], sections[new_idx] = sections[new_idx], sections[idx]
             save_data(data)
+            moved_name = sections[new_idx].get("name", "section")
+            commit_and_push(f"reordered section {moved_name}")
     return redirect(url_for("admin"))
 
 
@@ -160,6 +194,10 @@ def add_drink(section_id):
             drink["image"] = save_drink_image(file)
         section["drinks"].append(drink)
         save_data(data)
+        if drink["image"]:
+            commit_and_push(f"added picture to {name}")
+        else:
+            commit_and_push(f"added {name}")
     return redirect(url_for("admin"))
 
 
@@ -170,6 +208,11 @@ def update_drink(section_id, drink_id):
     if section:
         for d in section["drinks"]:
             if d["id"] == drink_id:
+                old_name = d.get("name", "drink")
+                old_price = d.get("price", "")
+                old_description = d.get("description", "")
+                old_extended_description = d.get("extended_description", "")
+                old_image = d.get("image")
                 d["name"] = request.form.get("name", "").strip() or d["name"]
                 d["price"] = request.form.get("price", "").strip()
                 d["description"] = request.form.get("description", "").strip()
@@ -181,7 +224,24 @@ def update_drink(section_id, drink_id):
                 if file and file.filename and allowed_file(file.filename):
                     delete_drink_image(d.get("image"))
                     d["image"] = save_drink_image(file)
-                save_data(data)
+                changed = (
+                    d.get("name") != old_name
+                    or d.get("price") != old_price
+                    or d.get("description") != old_description
+                    or d.get("extended_description") != old_extended_description
+                    or d.get("image") != old_image
+                )
+                if changed:
+                    save_data(data)
+                    drink_name = d.get("name", old_name)
+                    if old_image != d.get("image") and d.get("image"):
+                        commit_and_push(f"added picture to {drink_name}")
+                    elif old_image and not d.get("image"):
+                        commit_and_push(f"removed picture from {drink_name}")
+                    elif drink_name != old_name:
+                        commit_and_push(f"changed {old_name} to {drink_name}")
+                    else:
+                        commit_and_push(f"changed {drink_name}")
                 break
     return redirect(url_for("admin"))
 
@@ -191,12 +251,16 @@ def delete_drink(section_id, drink_id):
     data = load_data()
     section = find_section(data, section_id)
     if section:
+        deleted_name = None
         for d in section["drinks"]:
             if d["id"] == drink_id:
+                deleted_name = d.get("name", "drink")
                 delete_drink_image(d.get("image"))
                 break
         section["drinks"] = [d for d in section["drinks"] if d["id"] != drink_id]
-        save_data(data)
+        if deleted_name:
+            save_data(data)
+            commit_and_push(f"deleted {deleted_name}")
     return redirect(url_for("admin"))
 
 
@@ -213,6 +277,8 @@ def move_drink(section_id, drink_id):
             if 0 <= new_idx < len(drinks):
                 drinks[idx], drinks[new_idx] = drinks[new_idx], drinks[idx]
                 save_data(data)
+                moved_name = drinks[new_idx].get("name", "drink")
+                commit_and_push(f"reordered {moved_name}")
     return redirect(url_for("admin"))
 
 
