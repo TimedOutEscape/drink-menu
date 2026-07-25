@@ -26,16 +26,49 @@ html, body {
   --menu-scale: 1;
 }
 
+.menu-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: calc(0.22in * var(--menu-scale));
+  margin: 0 0 calc(0.16in * var(--menu-scale));
+  flex-shrink: 0;
+}
+
 .menu-title {
-  margin: 0 0 calc(0.28in * var(--menu-scale));
-  text-align: center;
+  margin: 0;
+  text-align: left;
   font-size: calc(2rem * var(--menu-scale));
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   line-height: 1.1;
   color: #241f1c;
-  flex-shrink: 0;
+  flex: 1;
+}
+
+.menu-qr {
+  display: flex;
+  align-items: center;
+  gap: calc(0.08in * var(--menu-scale));
+}
+
+.menu-qr-image {
+  display: block;
+  width: calc(1.05in * var(--menu-scale));
+  height: auto;
+  border: 1px solid #d9d0c7;
+  padding: 0.03in;
+  background: #fff;
+}
+
+.menu-qr-caption {
+  margin: 0;
+  width: calc(0.95in * var(--menu-scale));
+  text-align: right;
+  font-size: calc(0.78rem * var(--menu-scale));
+  line-height: 1.2;
+  color: #5c5148;
 }
 
 .sections {

@@ -10,7 +10,13 @@
 <body>
   <div class="page">
     <div class="page-content">
-      <h1 class="menu-title">{{ data.title }}</h1>
+      <div class="menu-header">
+        <h1 class="menu-title">{{ data.title }}</h1>
+        <div class="menu-qr">
+          <p class="menu-qr-caption">Scan for extended descriptions</p>
+          <img class="menu-qr-image" src="{{ url_for('static', filename='img/drinkmenu-qr.png') }}" alt="QR code for extended drink descriptions">
+        </div>
+      </div>
       <div class="sections">
         {% for section in data.sections %}
           <div class="section">
