@@ -22,7 +22,6 @@ app.jinja_env.filters["slugify"] = slugify
 
 DEFAULT_DATA = {
     "title": "Our Drink Menu",
-    "background": None,
     "sections": [],
 }
 
@@ -81,28 +80,6 @@ def update_title():
     if title:
         data["title"] = title
         save_data(data)
-    return redirect(url_for("admin"))
-
-
-@app.route("/background", methods=["POST"])
-def update_background():
-    data = load_data()
-    file = request.files.get("background")
-    if file and file.filename and allowed_file(file.filename):
-        ext = file.filename.rsplit(".", 1)[1].lower()
-        filename = f"bg_{new_id()}.{ext}"
-        os.makedirs(UPLOAD_DIR, exist_ok=True)
-        file.save(os.path.join(UPLOAD_DIR, secure_filename(filename)))
-        data["background"] = filename
-        save_data(data)
-    return redirect(url_for("admin"))
-
-
-@app.route("/background/remove", methods=["POST"])
-def remove_background():
-    data = load_data()
-    data["background"] = None
-    save_data(data)
     return redirect(url_for("admin"))
 
 

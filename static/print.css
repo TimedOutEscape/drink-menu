@@ -18,71 +18,59 @@ html, body {
   overflow: hidden;
 }
 
-.page-bg {
-  position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: center;
-  z-index: 0;
-}
-
-.page-bg::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(255, 253, 250, 0.86);
-}
-
 .page-content {
-  position: relative;
-  z-index: 1;
   height: 100%;
   padding: 0.6in 0.7in;
   display: flex;
   flex-direction: column;
+  --menu-scale: 1;
 }
 
 .menu-title {
+  margin: 0 0 calc(0.28in * var(--menu-scale));
   text-align: center;
-  font-size: 2.1rem;
-  letter-spacing: 0.04em;
+  font-size: calc(2rem * var(--menu-scale));
+  font-weight: 700;
   text-transform: uppercase;
-  margin: 0 0 0.4in;
+  letter-spacing: 0.08em;
+  line-height: 1.1;
+  color: #241f1c;
   flex-shrink: 0;
 }
 
 .sections {
   columns: 2;
-  column-gap: 0.5in;
+  column-gap: calc(0.5in * var(--menu-scale));
   flex: 1;
   overflow: hidden;
 }
 
 .section {
   break-inside: avoid;
-  margin-bottom: 0.35in;
+  margin-bottom: calc(0.35in * var(--menu-scale));
   border: 2px solid #a9cdea;
   border-radius: 14px;
-  padding: 0.2in 0.25in;
+  padding: calc(0.2in * var(--menu-scale)) calc(0.25in * var(--menu-scale));
 }
 
 .section-title {
-  font-size: 1.05rem;
+  font-size: calc(1.05rem * var(--menu-scale));
   text-transform: uppercase;
   letter-spacing: 0.08em;
   border-bottom: 1px solid #241f1c;
-  padding-bottom: 0.08in;
-  margin: 0 0 0.15in;
+  padding-bottom: calc(0.08in * var(--menu-scale));
+  margin: 0 0 calc(0.15in * var(--menu-scale));
 }
 
 .drink-list {
   list-style: none;
   margin: 0;
   padding: 0;
+  font-size: calc(1rem * var(--menu-scale));
 }
 
 .drink-item {
-  margin-bottom: 0.14in;
+  margin-bottom: calc(0.14in * var(--menu-scale));
 }
 
 .drink-line {
@@ -108,7 +96,7 @@ html, body {
 }
 
 .drink-desc {
-  font-size: 0.82rem;
+  font-size: calc(0.82em * var(--menu-scale));
   color: #5c5148;
   font-style: italic;
   margin-top: 0.02in;

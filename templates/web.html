@@ -8,9 +8,6 @@
 </head>
 <body>
   <header class="hero">
-    {% if data.background %}
-      <div class="hero-bg" style="background-image: url('{{ url_for('static', filename='uploads/' + data.background) }}');"></div>
-    {% endif %}
     <img class="hero-logo" src="{{ url_for('static', filename='img/timed-out-logo.png') }}" alt="{{ data.title }}">
   </header>
 

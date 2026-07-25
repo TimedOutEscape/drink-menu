@@ -29,24 +29,6 @@
   </div>
 
   <div class="panel">
-    <h2>Background Image</h2>
-    <form method="post" action="{{ url_for('update_background') }}" enctype="multipart/form-data" class="row ajax-form" data-toast-message="Background image saved">
-      <input type="file" name="background" accept="image/*" required>
-      <button class="btn" type="submit">Upload</button>
-    </form>
-    {% if data.background %}
-      <div class="bg-preview">
-        <img src="{{ url_for('static', filename='uploads/' + data.background) }}" alt="background preview">
-        <form method="post" action="{{ url_for('remove_background') }}" class="ajax-form" data-toast-message="Background image removed">
-          <button class="btn btn-danger" type="submit">Remove Background</button>
-        </form>
-      </div>
-    {% else %}
-      <p class="muted">No background set.</p>
-    {% endif %}
-  </div>
-
-  <div class="panel">
     <h2>Sections</h2>
 
     {% for section in data.sections %}
