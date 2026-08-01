@@ -3,6 +3,8 @@ import os
 import re
 import subprocess
 import uuid
+import shutil
+import tempfile
 
 from flask import Flask, render_template, request, redirect, url_for, flash
 from werkzeug.utils import secure_filename
@@ -11,18 +13,122 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_FILE = os.path.join(BASE_DIR, "data", "menu.json")
 UPLOAD_DIR = os.path.join(BASE_DIR, "static", "uploads")
 ALLOWED_EXT = {"png", "jpg", "jpeg", "gif", "webp"}
+STATIC_PAGE_BRANCH = "static-page"
+STATIC_PAGE_WORKTREE = os.path.join(tempfile.gettempdir(), "toe-menu-static-page")
+STATIC_EXPORT_ASSETS_DIR = os.path.join(STATIC_PAGE_WORKTREE, "assets")
 
 app = Flask(__name__)
 
 
-def _git_run(args):
+def _git_run(args, cwd=BASE_DIR):
     return subprocess.run(
         args,
-        cwd=BASE_DIR,
+        cwd=cwd,
         check=False,
         capture_output=True,
         text=True,
     )
+
+
+def _ensure_static_page_worktree():
+    git_dir = os.path.join(STATIC_PAGE_WORKTREE, ".git")
+    if os.path.exists(git_dir):
+        return
+
+    if os.path.isdir(STATIC_PAGE_WORKTREE):
+        shutil.rmtree(STATIC_PAGE_WORKTREE)
+
+    os.makedirs(os.path.dirname(STATIC_PAGE_WORKTREE), exist_ok=True)
+    branch_exists = bool(_git_run(["git", "branch", "--list", STATIC_PAGE_BRANCH]).stdout.strip())
+    if branch_exists:
+        result = _git_run(["git", "worktree", "add", STATIC_PAGE_WORKTREE, STATIC_PAGE_BRANCH])
+    else:
+        result = _git_run(["git", "worktree", "add", "-b", STATIC_PAGE_BRANCH, STATIC_PAGE_WORKTREE, "HEAD"])
+
+    if result.returncode != 0:
+        raise RuntimeError(result.stderr.strip() or result.stdout.strip() or "Failed to create static-page worktree")
+
+
+def _remove_path(path):
+    if os.path.isdir(path) and not os.path.islink(path):
+        shutil.rmtree(path)
+    elif os.path.exists(path):
+        os.remove(path)
+
+
+def _copy_static_file(relative_path):
+    source_path = os.path.join(BASE_DIR, relative_path)
+    destination_path = os.path.join(STATIC_PAGE_WORKTREE, relative_path)
+    if os.path.exists(source_path):
+        os.makedirs(os.path.dirname(destination_path), exist_ok=True)
+        shutil.copy2(source_path, destination_path)
+
+
+def _read_text_file(relative_path):
+    with open(os.path.join(BASE_DIR, relative_path), "r", encoding="utf-8") as file:
+        return file.read()
+
+
+def _build_static_page_html(data):
+    html = render_template("web.html", data=data)
+    css = _read_text_file(os.path.join("static", "web.css"))
+    js = _read_text_file(os.path.join("static", "web.js"))
+
+    html = html.replace(
+        '<link rel="stylesheet" href="/static/web.css">',
+        f"<style>\n{css}\n</style>",
+    )
+    html = html.replace(
+        '<script src="/static/web.js"></script>',
+        f"<script>\n{js}\n</script>",
+    )
+    html = html.replace("/static/img/timed-out-logo.png", "assets/timed-out-logo.png")
+    html = html.replace("/static/uploads/", "assets/uploads/")
+    return html
+
+
+def publish_static_site():
+    try:
+        data = load_data()
+        _ensure_static_page_worktree()
+
+        for entry in os.listdir(STATIC_PAGE_WORKTREE):
+            if entry == ".git":
+                continue
+            _remove_path(os.path.join(STATIC_PAGE_WORKTREE, entry))
+
+        index_path = os.path.join(STATIC_PAGE_WORKTREE, "index.html")
+        with open(index_path, "w", encoding="utf-8") as file:
+            file.write(_build_static_page_html(data))
+
+        for relative_path in (
+            "static/img/timed-out-logo.png",
+            "static/img/drinkmenu-qr.png",
+        ):
+            source_path = os.path.join(BASE_DIR, relative_path)
+            destination_path = os.path.join(STATIC_EXPORT_ASSETS_DIR, os.path.basename(relative_path))
+            if os.path.exists(source_path):
+                os.makedirs(os.path.dirname(destination_path), exist_ok=True)
+                shutil.copy2(source_path, destination_path)
+
+        uploads_source = os.path.join(BASE_DIR, "static", "uploads")
+        uploads_destination = os.path.join(STATIC_EXPORT_ASSETS_DIR, "uploads")
+        if os.path.isdir(uploads_source):
+            os.makedirs(uploads_destination, exist_ok=True)
+            for filename in os.listdir(uploads_source):
+                source_path = os.path.join(uploads_source, filename)
+                if os.path.isfile(source_path):
+                    shutil.copy2(source_path, os.path.join(uploads_destination, filename))
+
+        _git_run(["git", "add", "-A"], cwd=STATIC_PAGE_WORKTREE)
+        status = _git_run(["git", "status", "--porcelain"], cwd=STATIC_PAGE_WORKTREE)
+        if not status.stdout.strip():
+            return
+
+        _git_run(["git", "commit", "-m", "auto: update static web menu"], cwd=STATIC_PAGE_WORKTREE)
+        _git_run(["git", "push", "-u", "origin", STATIC_PAGE_BRANCH], cwd=STATIC_PAGE_WORKTREE)
+    except Exception as exc:
+        print(f"Static page publish failed: {exc}")
 
 
 def commit_and_push(message):
@@ -31,6 +137,7 @@ def commit_and_push(message):
         safe_message = "updated menu"
     safe_message = f"auto: {safe_message}"
 
+    publish_static_site()
     _git_run(["git", "add", "-A"])
     status = _git_run(["git", "status", "--porcelain"])
     if not status.stdout.strip():
