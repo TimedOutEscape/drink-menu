@@ -22,6 +22,32 @@ function showToast(message, isError) {
   }, 2500);
 }
 
+function showPendingToast(message) {
+  const container = document.getElementById("toast-container");
+  if (!container || !message) return null;
+  const toast = document.createElement("div");
+  toast.className = "toast toast-saving";
+  toast.textContent = message;
+  container.appendChild(toast);
+  requestAnimationFrame(() => toast.classList.add("toast-show"));
+  return toast;
+}
+
+function settleToast(toast, message, isError) {
+  if (!toast) return;
+  toast.classList.remove("toast-saving", "toast-error");
+  if (isError) {
+    toast.classList.add("toast-error");
+  } else {
+    toast.classList.add("toast-saved");
+  }
+  toast.textContent = message;
+  setTimeout(() => {
+    toast.classList.remove("toast-show");
+    setTimeout(() => toast.remove(), 300);
+  }, 1400);
+}
+
 async function handleAjaxSubmit(e) {
   const form = e.target;
   if (!form.classList.contains("ajax-form")) return;
@@ -35,6 +61,7 @@ async function handleAjaxSubmit(e) {
   const toastMessage = buildToastMessage(form, formData);
   const scrollX = window.scrollX;
   const scrollY = window.scrollY;
+  const pendingToast = showPendingToast("saving...");
 
   try {
     const response = await fetch(form.action, { method: "POST", body: formData });
@@ -47,9 +74,9 @@ async function handleAjaxSubmit(e) {
       bindAjaxForms(currentRoot);
     }
     window.scrollTo(scrollX, scrollY);
-    if (toastMessage) showToast(toastMessage);
+    settleToast(pendingToast, toastMessage || "saved", false);
   } catch (err) {
-    showToast("Something went wrong — try again", true);
+    settleToast(pendingToast, "Something went wrong — try again", true);
   }
 }
 

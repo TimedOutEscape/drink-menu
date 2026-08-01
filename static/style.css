@@ -324,3 +324,11 @@ input[type="text"], input[type="file"] {
 .toast-error {
   background: #b3402b;
 }
+
+.toast-saving {
+  background: #6b7280;
+}
+
+.toast-saved {
+  background: #2f9e44;
+}
