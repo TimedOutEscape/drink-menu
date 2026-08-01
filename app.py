@@ -16,18 +16,28 @@ ALLOWED_EXT = {"png", "jpg", "jpeg", "gif", "webp"}
 STATIC_PAGE_BRANCH = "static-page"
 STATIC_PAGE_WORKTREE = os.path.join(tempfile.gettempdir(), "toe-menu-static-page")
 STATIC_EXPORT_ASSETS_DIR = os.path.join(STATIC_PAGE_WORKTREE, "assets")
+GIT_COMMAND_TIMEOUT = 60
+GIT_ENV = {
+    "GIT_TERMINAL_PROMPT": "0",
+    "GIT_SSH_COMMAND": "ssh -o BatchMode=yes -o StrictHostKeyChecking=accept-new",
+}
 
 app = Flask(__name__)
 
 
 def _git_run(args, cwd=BASE_DIR):
-    return subprocess.run(
-        args,
-        cwd=cwd,
-        check=False,
-        capture_output=True,
-        text=True,
-    )
+    try:
+        return subprocess.run(
+            args,
+            cwd=cwd,
+            env={**os.environ, **GIT_ENV},
+            timeout=GIT_COMMAND_TIMEOUT,
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+    except subprocess.TimeoutExpired as exc:
+        raise RuntimeError(f"Git command timed out after {GIT_COMMAND_TIMEOUT}s: {' '.join(args)}") from exc
 
 
 def _ensure_static_page_worktree():

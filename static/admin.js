@@ -12,7 +12,7 @@ function showToast(message, isError) {
   const container = document.getElementById("toast-container");
   if (!container || !message) return;
   const toast = document.createElement("div");
-  toast.className = "toast" + (isError ? " toast-error" : "");
+  toast.className = "toast" + (isError ? " toast-error toast-banner" : "");
   toast.textContent = message;
   container.appendChild(toast);
   requestAnimationFrame(() => toast.classList.add("toast-show"));

@@ -335,11 +335,12 @@ input[type="text"], input[type="file"] {
 #toast-container {
   position: fixed;
   top: 1rem;
-  right: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 1000;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: center;
   gap: 0.5rem;
   pointer-events: none;
 }
@@ -363,7 +364,18 @@ input[type="text"], input[type="file"] {
 }
 
 .toast-error {
-  background: #b3402b;
+  background: linear-gradient(135deg, #d83b2d, #b31f18);
+  box-shadow: 0 16px 34px rgba(179, 31, 24, 0.38);
+}
+
+.toast-error.toast-banner {
+  min-width: min(96vw, 560px);
+  padding: 1rem 1.4rem;
+  font-size: 1.08rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  border: 2px solid rgba(255, 255, 255, 0.2);
 }
 
 .toast-saving {
