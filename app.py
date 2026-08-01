@@ -79,6 +79,10 @@ def _build_static_page_html(data):
         f"<style>\n{css}\n</style>",
     )
     html = html.replace(
+        '/static/img/favicon.png',
+        'assets/favicon.png',
+    )
+    html = html.replace(
         '<script src="/static/web.js"></script>',
         f"<script>\n{js}\n</script>",
     )
@@ -102,6 +106,7 @@ def publish_static_site(commit_message):
             file.write(_build_static_page_html(data))
 
         for relative_path in (
+            "static/img/favicon.png",
             "static/img/timed-out-logo.png",
             "static/img/drinkmenu-qr.png",
         ):

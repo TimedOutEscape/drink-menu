@@ -26,7 +26,7 @@ function showPendingToast(message) {
   const container = document.getElementById("toast-container");
   if (!container || !message) return null;
   const toast = document.createElement("div");
-  toast.className = "toast toast-saving";
+  toast.className = "toast toast-saving toast-banner";
   toast.textContent = message;
   container.appendChild(toast);
   requestAnimationFrame(() => toast.classList.add("toast-show"));
@@ -62,6 +62,15 @@ async function handleAjaxSubmit(e) {
   const scrollX = window.scrollX;
   const scrollY = window.scrollY;
   const pendingToast = showPendingToast("saving...");
+  const submitButtons = Array.from(form.querySelectorAll('button[type="submit"]'));
+  form.classList.add("is-saving");
+  submitButtons.forEach((button) => {
+    button.disabled = true;
+    button.dataset.originalText = button.textContent;
+    if (button.classList.contains("btn-primary")) {
+      button.textContent = "Saving...";
+    }
+  });
 
   try {
     const response = await fetch(form.action, { method: "POST", body: formData });
@@ -77,6 +86,15 @@ async function handleAjaxSubmit(e) {
     settleToast(pendingToast, toastMessage || "saved", false);
   } catch (err) {
     settleToast(pendingToast, "Something went wrong — try again", true);
+  } finally {
+    form.classList.remove("is-saving");
+    submitButtons.forEach((button) => {
+      button.disabled = false;
+      if (button.dataset.originalText) {
+        button.textContent = button.dataset.originalText;
+        delete button.dataset.originalText;
+      }
+    });
   }
 }
 
