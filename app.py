@@ -87,7 +87,7 @@ def _build_static_page_html(data):
     return html
 
 
-def publish_static_site():
+def publish_static_site(commit_message):
     try:
         data = load_data()
         _ensure_static_page_worktree()
@@ -125,7 +125,7 @@ def publish_static_site():
         if not status.stdout.strip():
             return
 
-        _git_run(["git", "commit", "-m", "auto: update static web menu"], cwd=STATIC_PAGE_WORKTREE)
+        _git_run(["git", "commit", "-m", commit_message], cwd=STATIC_PAGE_WORKTREE)
         _git_run(["git", "push", "-u", "origin", STATIC_PAGE_BRANCH], cwd=STATIC_PAGE_WORKTREE)
     except Exception as exc:
         print(f"Static page publish failed: {exc}")
@@ -137,7 +137,7 @@ def commit_and_push(message):
         safe_message = "updated menu"
     safe_message = f"auto: {safe_message}"
 
-    publish_static_site()
+    publish_static_site(safe_message)
     _git_run(["git", "add", "-A"])
     status = _git_run(["git", "status", "--porcelain"])
     if not status.stdout.strip():
