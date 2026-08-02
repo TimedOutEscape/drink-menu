@@ -203,20 +203,20 @@
           "image": "label_141bbbc8.png"
         },
         {
-          "id": "9e0b1568",
-          "name": "Water",
-          "price": "1.00",
-          "description": "",
-          "extended_description": "",
-          "image": null
-        },
-        {
           "id": "40f9201c",
           "name": "Diet Coke",
           "price": "2.00",
           "description": "",
           "extended_description": "",
           "image": "label_d5b5d08f.png"
+        },
+        {
+          "id": "9e0b1568",
+          "name": "Water",
+          "price": "1.00",
+          "description": "",
+          "extended_description": "",
+          "image": null
         }
       ]
     }
