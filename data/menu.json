@@ -149,14 +149,6 @@
       "name": "Bottles of Wine",
       "drinks": [
         {
-          "id": "2d6940d9",
-          "name": "Santa Gristina Pinot Grigio",
-          "price": "26.00",
-          "description": "Crisp and appealing, offering a juicy beam of yellow peach, white blossoms, tangerine pith and ground ginger.",
-          "extended_description": "",
-          "image": "label_f9b81bd3.png"
-        },
-        {
           "id": "c9a3f113",
           "name": "Imagery Chardonnay",
           "price": "24.00",
