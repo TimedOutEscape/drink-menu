@@ -83,14 +83,6 @@
       "name": "Red Wine",
       "drinks": [
         {
-          "id": "f90a75d3",
-          "name": "M\u00e9nage \u00e0 Trois",
-          "price": "6.00",
-          "description": "Its signature red blend that combines three grape varietals: Zinfandel, Merlot, and Cabernet Sauvignon.",
-          "extended_description": "",
-          "image": "label_c64370b1.jpeg"
-        },
-        {
           "id": "6e5a63cf",
           "name": "Cavit Pinot Noir",
           "price": "8.00",
