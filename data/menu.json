@@ -89,6 +89,14 @@
           "description": "Its signature red blend that combines three grape varietals: Zinfandel, Merlot, and Cabernet Sauvignon.",
           "extended_description": "",
           "image": "label_c64370b1.jpeg"
+        },
+        {
+          "id": "6e5a63cf",
+          "name": "Cavit Pinot Noir",
+          "price": "8.00",
+          "description": "",
+          "extended_description": "",
+          "image": null
         }
       ]
     },
