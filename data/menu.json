@@ -137,6 +137,11 @@
       ]
     },
     {
+      "id": "73f42f66",
+      "name": "Beer - Imports",
+      "drinks": []
+    },
+    {
       "id": "8a8fcabc",
       "name": "Wine - Bottles - 750ml",
       "drinks": [
@@ -157,11 +162,6 @@
           "image": "label_8761a570.jpeg"
         }
       ]
-    },
-    {
-      "id": "73f42f66",
-      "name": "Beer - Imports",
-      "drinks": []
     },
     {
       "id": "836d0382",
