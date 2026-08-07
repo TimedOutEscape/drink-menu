@@ -121,6 +121,11 @@
       ]
     },
     {
+      "id": "98f17128",
+      "name": "Beer - Domestic",
+      "drinks": []
+    },
+    {
       "id": "8a8fcabc",
       "name": "Wine - Bottles - 750ml",
       "drinks": [
@@ -141,11 +146,6 @@
           "image": "label_8761a570.jpeg"
         }
       ]
-    },
-    {
-      "id": "98f17128",
-      "name": "Beer - Domestic",
-      "drinks": []
     },
     {
       "id": "af7ad1dc",
