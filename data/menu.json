@@ -5,7 +5,16 @@
     {
       "id": "98f17128",
       "name": "Beer - Domestic",
-      "drinks": []
+      "drinks": [
+        {
+          "id": "eb594bc9",
+          "name": "Coors Light - 12oz",
+          "price": "5.00",
+          "description": "Light, lager beer, known for its crisp, clean and refreshing taste.",
+          "extended_description": "",
+          "image": "label_d39c6c5d.jpg"
+        }
+      ]
     },
     {
       "id": "14649dbf",
