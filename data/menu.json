@@ -49,6 +49,11 @@
       ]
     },
     {
+      "id": "73f42f66",
+      "name": "Beer - Imports",
+      "drinks": []
+    },
+    {
       "id": "af7ad1dc",
       "name": "Seltzer/Cider",
       "drinks": [
@@ -77,11 +82,6 @@
           "image": "label_09a4f9dc.jpeg"
         }
       ]
-    },
-    {
-      "id": "73f42f66",
-      "name": "Beer - Imports",
-      "drinks": []
     },
     {
       "id": "04931b11",
