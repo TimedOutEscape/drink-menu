@@ -51,7 +51,16 @@
     {
       "id": "73f42f66",
       "name": "Beer - Craft",
-      "drinks": []
+      "drinks": [
+        {
+          "id": "ca420e0c",
+          "name": "Hazy Little Thing IPA - 12oz",
+          "price": "7.00",
+          "description": "IPA known for its juicy, fruit-forward flavors and smooth, silky mouthfeel.",
+          "extended_description": "",
+          "image": "label_41ff6f0c.jpeg"
+        }
+      ]
     },
     {
       "id": "04931b11",
