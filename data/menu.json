@@ -68,6 +68,20 @@
       ]
     },
     {
+      "id": "935cde19",
+      "name": "White Wine",
+      "drinks": [
+        {
+          "id": "3348e817",
+          "name": "Cavit Pinot Grigio - 187ml",
+          "price": "8.00",
+          "description": "Light refreshing flavors of citrus and green apple",
+          "extended_description": "",
+          "image": "label_993be4c1.png"
+        }
+      ]
+    },
+    {
       "id": "af7ad1dc",
       "name": "Seltzer/Cider",
       "drinks": [
@@ -94,20 +108,6 @@
           "description": "Real fruit flavor and a whole lotta berry refreshment!",
           "extended_description": "",
           "image": "label_09a4f9dc.jpeg"
-        }
-      ]
-    },
-    {
-      "id": "935cde19",
-      "name": "White Wine",
-      "drinks": [
-        {
-          "id": "3348e817",
-          "name": "Cavit Pinot Grigio - 187ml",
-          "price": "8.00",
-          "description": "Light refreshing flavors of citrus and green apple",
-          "extended_description": "",
-          "image": "label_993be4c1.png"
         }
       ]
     },
