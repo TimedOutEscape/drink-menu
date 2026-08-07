@@ -159,6 +159,11 @@
       ]
     },
     {
+      "id": "73f42f66",
+      "name": "Beer - Imports",
+      "drinks": []
+    },
+    {
       "id": "836d0382",
       "name": "Soda / Water",
       "drinks": [
@@ -195,11 +200,6 @@
           "image": null
         }
       ]
-    },
-    {
-      "id": "73f42f66",
-      "name": "Beer - Imports",
-      "drinks": []
     }
   ]
 }
