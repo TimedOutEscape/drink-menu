@@ -173,6 +173,11 @@
       ]
     },
     {
+      "id": "98f17128",
+      "name": "Beer - Domestic",
+      "drinks": []
+    },
+    {
       "id": "836d0382",
       "name": "Soda / Water",
       "drinks": [
@@ -209,11 +214,6 @@
           "image": null
         }
       ]
-    },
-    {
-      "id": "98f17128",
-      "name": "Beer - Domestic",
-      "drinks": []
     }
   ]
 }
