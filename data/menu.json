@@ -91,6 +91,11 @@
       ]
     },
     {
+      "id": "98f17128",
+      "name": "Beer - Domestic",
+      "drinks": []
+    },
+    {
       "id": "1eb7a610",
       "name": "Sparkling Wine",
       "drinks": [
@@ -119,11 +124,6 @@
           "image": "label_a221519b.png"
         }
       ]
-    },
-    {
-      "id": "98f17128",
-      "name": "Beer - Domestic",
-      "drinks": []
     },
     {
       "id": "8a8fcabc",
