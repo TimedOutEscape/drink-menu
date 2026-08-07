@@ -54,20 +54,6 @@
       "drinks": []
     },
     {
-      "id": "04931b11",
-      "name": "Red Wine",
-      "drinks": [
-        {
-          "id": "6e5a63cf",
-          "name": "Cavit Pinot Noir - 187 ml",
-          "price": "8.00",
-          "description": "",
-          "extended_description": "",
-          "image": "label_728a406c.jpeg"
-        }
-      ]
-    },
-    {
       "id": "af7ad1dc",
       "name": "Seltzer/Cider",
       "drinks": [
@@ -94,6 +80,20 @@
           "description": "Real fruit flavor and a whole lotta berry refreshment!",
           "extended_description": "",
           "image": "label_09a4f9dc.jpeg"
+        }
+      ]
+    },
+    {
+      "id": "04931b11",
+      "name": "Red Wine",
+      "drinks": [
+        {
+          "id": "6e5a63cf",
+          "name": "Cavit Pinot Noir - 187 ml",
+          "price": "8.00",
+          "description": "",
+          "extended_description": "",
+          "image": "label_728a406c.jpeg"
         }
       ]
     },
