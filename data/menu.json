@@ -3,6 +3,11 @@
   "background": null,
   "sections": [
     {
+      "id": "98f17128",
+      "name": "Beer - Domestic",
+      "drinks": []
+    },
+    {
       "id": "14649dbf",
       "name": "Beer - Imports",
       "drinks": [
@@ -39,11 +44,6 @@
           "image": "label_96429d7b.jpg"
         }
       ]
-    },
-    {
-      "id": "98f17128",
-      "name": "Beer - Domestic",
-      "drinks": []
     },
     {
       "id": "73f42f66",
