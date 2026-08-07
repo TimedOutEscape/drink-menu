@@ -125,20 +125,20 @@
           "image": "label_ddb62270.jpeg"
         },
         {
-          "id": "c1dd15ac",
-          "name": "Lunetta Prosecco Brut - 187ml",
-          "price": "8.00",
-          "description": "Refreshing, dry, and harmonious, with crisp fruit flavors and a clean finish.",
-          "extended_description": "",
-          "image": "label_a221519b.png"
-        },
-        {
           "id": "e3f88325",
           "name": "Segura Viduas Cava Ros\u00e9 - 750ml",
           "price": "32.00",
           "description": "Youthful fruit aromas of strawberry, redcurrant and grenadine.",
           "extended_description": "",
           "image": "label_caa11278.jpeg"
+        },
+        {
+          "id": "c1dd15ac",
+          "name": "Lunetta Prosecco Brut - 187ml",
+          "price": "8.00",
+          "description": "Refreshing, dry, and harmonious, with crisp fruit flavors and a clean finish.",
+          "extended_description": "",
+          "image": "label_a221519b.png"
         }
       ]
     },
