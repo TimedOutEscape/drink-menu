@@ -41,6 +41,11 @@
       ]
     },
     {
+      "id": "98f17128",
+      "name": "Beer - Domestic",
+      "drinks": []
+    },
+    {
       "id": "73f42f66",
       "name": "Beer - Craft",
       "drinks": [
@@ -53,11 +58,6 @@
           "image": "label_41ff6f0c.jpeg"
         }
       ]
-    },
-    {
-      "id": "98f17128",
-      "name": "Beer - Domestic",
-      "drinks": []
     },
     {
       "id": "04931b11",
