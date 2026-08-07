@@ -95,20 +95,20 @@
           "image": "label_f75228ae.jpg"
         },
         {
-          "id": "33e947a4",
-          "name": "Imagery Chardonnay - 750ml",
-          "price": "30.00",
-          "description": "Subtle oak and balanced flavors of green and vanilla, followed by complex layers of fruit and spice.",
-          "extended_description": "Crisp and elegant, this Chardonnay radiates aromas of apple, lime and pear. Subtle oak and and a touch of Chenin Blanc, boost this wine\u2019s brightness and overall liveliness. Balanced flavors of green apple and vanilla, followed by complex layers of fruit and spice lead to an elegant creamy finish. Natural varietal characteristics of Chardonnay shine through without being overshadowed by dominant oak notes. Wine Enthusiast: 89 Wine Spectator: 92",
-          "image": "label_a1ef6737.jpg"
-        },
-        {
           "id": "801dc9ef",
           "name": "Honig Sauvignon Blanc",
           "price": "18.00",
           "description": "Honig Sauvignon Blanc is a crisp, dry white wine primarily sourced from California\u2019s Napa Valley and Lake County",
           "extended_description": "Zesty and vibrant with aromas of grapefruit, lime, green apples and fresh herbs. Light-bodied and crisp, with bright acidity and a clean, citrusy finish. Bright and mouthwatering, offering lemon-lime flavors, with lemongrass and lemon blossom accents, plus touches of lemon balm and basil.  \r\nWine Enthusiast: 93\r\nWine Spectator: 89",
           "image": "label_dee24967.jpeg"
+        },
+        {
+          "id": "33e947a4",
+          "name": "Imagery Chardonnay - 750ml",
+          "price": "30.00",
+          "description": "Subtle oak and balanced flavors of green and vanilla, followed by complex layers of fruit and spice.",
+          "extended_description": "Crisp and elegant, this Chardonnay radiates aromas of apple, lime and pear. Subtle oak and and a touch of Chenin Blanc, boost this wine\u2019s brightness and overall liveliness. Balanced flavors of green apple and vanilla, followed by complex layers of fruit and spice lead to an elegant creamy finish. Natural varietal characteristics of Chardonnay shine through without being overshadowed by dominant oak notes. Wine Enthusiast: 89 Wine Spectator: 92",
+          "image": "label_a1ef6737.jpg"
         }
       ]
     },
