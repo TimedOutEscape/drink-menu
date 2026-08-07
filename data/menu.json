@@ -93,6 +93,11 @@
       ]
     },
     {
+      "id": "73f42f66",
+      "name": "Beer - Imports",
+      "drinks": []
+    },
+    {
       "id": "935cde19",
       "name": "White Wine",
       "drinks": [
@@ -105,11 +110,6 @@
           "image": "label_993be4c1.png"
         }
       ]
-    },
-    {
-      "id": "73f42f66",
-      "name": "Beer - Imports",
-      "drinks": []
     },
     {
       "id": "1eb7a610",
