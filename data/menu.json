@@ -69,6 +69,11 @@
       ]
     },
     {
+      "id": "98f17128",
+      "name": "Beer - Domestic",
+      "drinks": []
+    },
+    {
       "id": "935cde19",
       "name": "White Wine",
       "drinks": [
@@ -89,11 +94,6 @@
           "image": "label_f75228ae.jpg"
         }
       ]
-    },
-    {
-      "id": "98f17128",
-      "name": "Beer - Domestic",
-      "drinks": []
     },
     {
       "id": "1eb7a610",
