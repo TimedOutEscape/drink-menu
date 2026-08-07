@@ -145,16 +145,7 @@
     {
       "id": "8a8fcabc",
       "name": "Wine - Bottles",
-      "drinks": [
-        {
-          "id": "aa4091d7",
-          "name": "Segura Viduas Cava Ros\u00e9 - 750ml",
-          "price": "32.00",
-          "description": "Youthful fruit aromas of strawberry, redcurrant and grenadine.",
-          "extended_description": "",
-          "image": "label_8761a570.jpeg"
-        }
-      ]
+      "drinks": []
     },
     {
       "id": "af7ad1dc",
