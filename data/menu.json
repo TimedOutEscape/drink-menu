@@ -79,6 +79,11 @@
       ]
     },
     {
+      "id": "73f42f66",
+      "name": "Beer - Imports",
+      "drinks": []
+    },
+    {
       "id": "04931b11",
       "name": "Red Wine",
       "drinks": [
@@ -91,11 +96,6 @@
           "image": "label_728a406c.jpeg"
         }
       ]
-    },
-    {
-      "id": "73f42f66",
-      "name": "Beer - Imports",
-      "drinks": []
     },
     {
       "id": "935cde19",
