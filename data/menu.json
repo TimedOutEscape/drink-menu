@@ -143,6 +143,11 @@
       ]
     },
     {
+      "id": "98f17128",
+      "name": "Beer - Domestic",
+      "drinks": []
+    },
+    {
       "id": "af7ad1dc",
       "name": "Seltzer/Cider",
       "drinks": [
@@ -171,11 +176,6 @@
           "image": "label_09a4f9dc.jpeg"
         }
       ]
-    },
-    {
-      "id": "98f17128",
-      "name": "Beer - Domestic",
-      "drinks": []
     },
     {
       "id": "836d0382",
