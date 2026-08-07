@@ -82,36 +82,6 @@
       ]
     },
     {
-      "id": "af7ad1dc",
-      "name": "Seltzer/Cider",
-      "drinks": [
-        {
-          "id": "3864d821",
-          "name": "Flatrock Tropical Pineapple - 16.9 oz",
-          "price": "7.00",
-          "description": "Fruity apple aroma is paired with a refershing and clean pineapple finish.",
-          "extended_description": "",
-          "image": "label_d1024d1c.jpeg"
-        },
-        {
-          "id": "e1968700",
-          "name": "Truly Strawberry Lemonade - 12 oz",
-          "price": "4.00",
-          "description": "Blend of sweet strawberry lemonade and refreshing hard seltzer.",
-          "extended_description": "",
-          "image": "label_afe8d504.png"
-        },
-        {
-          "id": "30ea3c65",
-          "name": "Truly Wild Berry - 12 oz",
-          "price": "4.00",
-          "description": "Real fruit flavor and a whole lotta berry refreshment!",
-          "extended_description": "",
-          "image": "label_09a4f9dc.jpeg"
-        }
-      ]
-    },
-    {
       "id": "1eb7a610",
       "name": "Sparkling Wine",
       "drinks": [
@@ -138,6 +108,36 @@
           "description": "Refreshing, dry, and harmonious, with crisp fruit flavors and a clean finish.",
           "extended_description": "",
           "image": "label_a221519b.png"
+        }
+      ]
+    },
+    {
+      "id": "af7ad1dc",
+      "name": "Seltzer/Cider",
+      "drinks": [
+        {
+          "id": "3864d821",
+          "name": "Flatrock Tropical Pineapple - 16.9 oz",
+          "price": "7.00",
+          "description": "Fruity apple aroma is paired with a refershing and clean pineapple finish.",
+          "extended_description": "",
+          "image": "label_d1024d1c.jpeg"
+        },
+        {
+          "id": "e1968700",
+          "name": "Truly Strawberry Lemonade - 12 oz",
+          "price": "4.00",
+          "description": "Blend of sweet strawberry lemonade and refreshing hard seltzer.",
+          "extended_description": "",
+          "image": "label_afe8d504.png"
+        },
+        {
+          "id": "30ea3c65",
+          "name": "Truly Wild Berry - 12 oz",
+          "price": "4.00",
+          "description": "Real fruit flavor and a whole lotta berry refreshment!",
+          "extended_description": "",
+          "image": "label_09a4f9dc.jpeg"
         }
       ]
     },
