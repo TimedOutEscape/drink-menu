@@ -107,6 +107,11 @@
       ]
     },
     {
+      "id": "73f42f66",
+      "name": "Beer - Imports",
+      "drinks": []
+    },
+    {
       "id": "1eb7a610",
       "name": "Sparkling Wine",
       "drinks": [
@@ -135,11 +140,6 @@
           "image": "label_a221519b.png"
         }
       ]
-    },
-    {
-      "id": "73f42f66",
-      "name": "Beer - Imports",
-      "drinks": []
     },
     {
       "id": "8a8fcabc",
