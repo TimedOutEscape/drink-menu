@@ -87,20 +87,20 @@
           "image": "label_993be4c1.png"
         },
         {
-          "id": "234b6517",
-          "name": "Bonanza Chardonnay - 375ml",
-          "price": "19.00",
-          "description": "Fruit-forward California white\u00a0emphasizing crisp melon, fresh floral aromas, and vibrant acidity",
-          "extended_description": "Nose: Aromas of light melon, fresh white flowers, green apple, and crisp pear with subtle citrus and vanilla hints.  Palate: Medium-bodied with flavors of ripe peach, tropical fruit, and lemon curd, rounded out by a clean, vibrant acidity.  Finish: Smooth, crisp, and refreshing with a clean, lingering citrus-zest close.  Wine Spectator: 90 Wine Enthusiast:88",
-          "image": "label_f75228ae.jpg"
-        },
-        {
           "id": "801dc9ef",
           "name": "Honig Sauvignon Blanc",
           "price": "18.00",
           "description": "Honig Sauvignon Blanc is a crisp, dry white wine primarily sourced from California\u2019s Napa Valley and Lake County",
           "extended_description": "Zesty and vibrant with aromas of grapefruit, lime, green apples and fresh herbs. Light-bodied and crisp, with bright acidity and a clean, citrusy finish. Bright and mouthwatering, offering lemon-lime flavors, with lemongrass and lemon blossom accents, plus touches of lemon balm and basil.  \r\nWine Enthusiast: 93\r\nWine Spectator: 89",
           "image": "label_dee24967.jpeg"
+        },
+        {
+          "id": "234b6517",
+          "name": "Bonanza Chardonnay - 375ml",
+          "price": "19.00",
+          "description": "Fruit-forward California white\u00a0emphasizing crisp melon, fresh floral aromas, and vibrant acidity",
+          "extended_description": "Nose: Aromas of light melon, fresh white flowers, green apple, and crisp pear with subtle citrus and vanilla hints.  Palate: Medium-bodied with flavors of ripe peach, tropical fruit, and lemon curd, rounded out by a clean, vibrant acidity.  Finish: Smooth, crisp, and refreshing with a clean, lingering citrus-zest close.  Wine Spectator: 90 Wine Enthusiast:88",
+          "image": "label_f75228ae.jpg"
         },
         {
           "id": "33e947a4",
