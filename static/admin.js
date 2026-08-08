@@ -119,9 +119,15 @@ async function handleManualExport(button) {
 
   try {
     const response = await fetch(exportUrl, { method: "POST" });
-    const payload = await response.json().catch(() => null);
+    const responseText = await response.text();
+    let payload = null;
+    try {
+      payload = responseText ? JSON.parse(responseText) : null;
+    } catch (_err) {
+      payload = null;
+    }
     if (!response.ok || !payload || payload.ok === false) {
-      throw new Error((payload && payload.message) || "Public site export failed");
+      throw new Error((payload && payload.message) || responseText || `Public site export failed (${response.status})`);
     }
     settleToast(pendingToast, payload.message || "Public site updated and pushed", false);
   } catch (err) {

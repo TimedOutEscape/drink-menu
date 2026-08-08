@@ -7,6 +7,7 @@ import subprocess
 import uuid
 import shutil
 import tempfile
+import logging
 
 from flask import Flask, jsonify, render_template, request, redirect, url_for, flash
 from werkzeug.utils import secure_filename
@@ -25,9 +26,18 @@ GIT_ENV = {
 
 app = Flask(__name__)
 
+logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
+app.logger.setLevel(logging.INFO)
+logging.getLogger("werkzeug").setLevel(logging.WARNING)
+
+
+def _log_git(message):
+    app.logger.info("[git] %s", message)
+
 
 def _git_run(args, cwd=BASE_DIR):
     try:
+        _log_git(f"running {' '.join(args)} in {cwd}")
         return subprocess.run(
             args,
             cwd=cwd,
@@ -46,6 +56,7 @@ def _git_run_with_env(args, cwd=BASE_DIR, extra_env=None):
     if extra_env:
         env.update(extra_env)
     try:
+        _log_git(f"running {' '.join(args)} in {cwd} with env overrides {sorted((extra_env or {}).keys())}")
         return subprocess.run(
             args,
             cwd=cwd,
@@ -89,6 +100,7 @@ def _get_static_page_worktree_path():
 
 
 def _ensure_static_page_worktree():
+    _log_git("pruning stale worktrees")
     _git_run(["git", "worktree", "prune"])
     static_page_worktree = _get_static_page_worktree_path()
     if os.path.exists(os.path.join(static_page_worktree, ".git")):
@@ -100,8 +112,10 @@ def _ensure_static_page_worktree():
     os.makedirs(os.path.dirname(static_page_worktree), exist_ok=True)
     branch_exists = bool(_git_run(["git", "branch", "--list", STATIC_PAGE_BRANCH]).stdout.strip())
     if branch_exists:
+        _log_git(f"adding existing branch worktree for {STATIC_PAGE_BRANCH} at {static_page_worktree}")
         result = _git_run(["git", "worktree", "add", static_page_worktree, STATIC_PAGE_BRANCH])
     else:
+        _log_git(f"creating new branch worktree for {STATIC_PAGE_BRANCH} at {static_page_worktree}")
         result = _git_run(["git", "worktree", "add", "-b", STATIC_PAGE_BRANCH, static_page_worktree, "HEAD"])
 
     if result.returncode != 0:
@@ -164,6 +178,7 @@ def _build_static_page_html(data):
 
 def publish_static_site(commit_message):
     try:
+        _log_git(f"publishing static site with commit message: {commit_message}")
         data = load_data()
         _ensure_static_page_worktree()
         static_page_worktree = _get_static_page_worktree_path()
@@ -279,6 +294,7 @@ def export_static_site(manual=False):
             commit_args = ["git", "commit", "-m", commit_message]
             commit_env = None
 
+    _log_git(f"creating export commit at {commit_timestamp}")
     commit_result = _git_run_with_env(commit_args, cwd=static_page_worktree, extra_env=commit_env)
     if commit_result.returncode != 0:
         raise RuntimeError(commit_result.stderr.strip() or commit_result.stdout.strip() or "Failed to commit static page export")
@@ -291,7 +307,9 @@ def export_static_site(manual=False):
     if manual and actual_commit_timestamp != commit_timestamp:
         raise RuntimeError("The static page export commit timestamp did not match the manual export timestamp")
 
+    _log_git(f"pushing static-page commit {commit_hash}")
     _git_run(["git", "push", "-u", "origin", STATIC_PAGE_BRANCH], cwd=static_page_worktree)
+    _log_git(f"verifying remote branch tip for {STATIC_PAGE_BRANCH}")
     remote_hash = _get_remote_branch_hash(static_page_worktree, STATIC_PAGE_BRANCH)
     if remote_hash != commit_hash:
         raise RuntimeError("The static page branch push did not land on the expected commit")
@@ -330,6 +348,7 @@ def export_static_page():
             "commit_timestamp": result["commit_timestamp"],
         })
     except Exception as exc:
+        app.logger.exception("Manual export failed")
         return jsonify({"ok": False, "message": str(exc)}), 500
 
 def slugify(text):
