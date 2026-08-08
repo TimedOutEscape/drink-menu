@@ -104,6 +104,38 @@ function bindAjaxForms(root) {
   });
 }
 
+async function handleManualExport(button) {
+  if (button.dataset.confirm && !window.confirm(button.dataset.confirm)) {
+    return;
+  }
+
+  const exportUrl = button.dataset.exportUrl;
+  if (!exportUrl) return;
+
+  const originalText = button.textContent;
+  const pendingToast = showPendingToast("exporting public site...");
+  button.disabled = true;
+  button.textContent = "Exporting...";
+
+  try {
+    const response = await fetch(exportUrl, { method: "POST" });
+    const payload = await response.json().catch(() => null);
+    if (!response.ok || !payload || payload.ok === false) {
+      throw new Error((payload && payload.message) || "Public site export failed");
+    }
+    settleToast(pendingToast, payload.message || "Public site updated and pushed", false);
+  } catch (err) {
+    settleToast(pendingToast, err.message || "Public site export failed", true);
+  } finally {
+    button.disabled = false;
+    button.textContent = originalText;
+  }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   bindAjaxForms(document.getElementById("app-root"));
+  const manualExportButton = document.getElementById("manual-export-button");
+  if (manualExportButton) {
+    manualExportButton.addEventListener("click", () => handleManualExport(manualExportButton));
+  }
 });

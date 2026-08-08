@@ -1,5 +1,6 @@
 import json
 import base64
+from datetime import datetime, timezone
 import os
 import re
 import subprocess
@@ -7,7 +8,7 @@ import uuid
 import shutil
 import tempfile
 
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, jsonify, render_template, request, redirect, url_for, flash
 from werkzeug.utils import secure_filename
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -40,6 +41,24 @@ def _git_run(args, cwd=BASE_DIR):
         raise RuntimeError(f"Git command timed out after {GIT_COMMAND_TIMEOUT}s: {' '.join(args)}") from exc
 
 
+def _git_run_with_env(args, cwd=BASE_DIR, extra_env=None):
+    env = {**os.environ, **GIT_ENV}
+    if extra_env:
+        env.update(extra_env)
+    try:
+        return subprocess.run(
+            args,
+            cwd=cwd,
+            env=env,
+            timeout=GIT_COMMAND_TIMEOUT,
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+    except subprocess.TimeoutExpired as exc:
+        raise RuntimeError(f"Git command timed out after {GIT_COMMAND_TIMEOUT}s: {' '.join(args)}") from exc
+
+
 def _get_static_page_worktree_path():
     result = _git_run(["git", "worktree", "list", "--porcelain"])
     current_worktree = None
@@ -50,18 +69,27 @@ def _get_static_page_worktree_path():
         elif line.startswith("branch "):
             current_branch = line.removeprefix("branch ").strip()
         elif line == "":
-            if current_branch == f"refs/heads/{STATIC_PAGE_BRANCH}" and current_worktree:
+            if (
+                current_branch == f"refs/heads/{STATIC_PAGE_BRANCH}"
+                and current_worktree
+                and os.path.exists(os.path.join(current_worktree, ".git"))
+            ):
                 return current_worktree
             current_worktree = None
             current_branch = None
 
-    if current_branch == f"refs/heads/{STATIC_PAGE_BRANCH}" and current_worktree:
+    if (
+        current_branch == f"refs/heads/{STATIC_PAGE_BRANCH}"
+        and current_worktree
+        and os.path.exists(os.path.join(current_worktree, ".git"))
+    ):
         return current_worktree
 
     return STATIC_PAGE_WORKTREE_FALLBACK
 
 
 def _ensure_static_page_worktree():
+    _git_run(["git", "worktree", "prune"])
     static_page_worktree = _get_static_page_worktree_path()
     if os.path.exists(os.path.join(static_page_worktree, ".git")):
         return
@@ -137,9 +165,9 @@ def _build_static_page_html(data):
 def publish_static_site(commit_message):
     try:
         data = load_data()
+        _ensure_static_page_worktree()
         static_page_worktree = _get_static_page_worktree_path()
         static_export_assets_dir = os.path.join(static_page_worktree, "assets")
-        _ensure_static_page_worktree()
 
         for entry in os.listdir(static_page_worktree):
             if entry == ".git":
@@ -183,6 +211,98 @@ def publish_static_site(commit_message):
         print(f"Static page publish failed: {exc}")
 
 
+def _get_commit_timestamp(commit_hash, cwd):
+    result = _git_run(["git", "show", "-s", "--format=%cI", commit_hash], cwd=cwd)
+    timestamp = result.stdout.strip()
+    if not timestamp:
+        raise RuntimeError("Could not read commit timestamp")
+    return timestamp
+
+
+def _get_remote_branch_hash(cwd, branch):
+    result = _git_run(["git", "ls-remote", "origin", f"refs/heads/{branch}"], cwd=cwd)
+    reference = result.stdout.strip()
+    if not reference:
+        raise RuntimeError(f"Remote branch {branch} was not found after push")
+    return reference.split()[0]
+
+
+def export_static_site(manual=False):
+    data = load_data()
+    _ensure_static_page_worktree()
+    static_page_worktree = _get_static_page_worktree_path()
+    static_export_assets_dir = os.path.join(static_page_worktree, "assets")
+
+    for entry in os.listdir(static_page_worktree):
+        if entry == ".git":
+            continue
+        _remove_path(os.path.join(static_page_worktree, entry))
+
+    index_path = os.path.join(static_page_worktree, "index.html")
+    with open(index_path, "w", encoding="utf-8") as file:
+        file.write(_build_static_page_html(data))
+
+    for relative_path in (
+        "static/img/timed-out-logo.png",
+        "static/img/drinkmenu-qr.png",
+    ):
+        source_path = os.path.join(BASE_DIR, relative_path)
+        if os.path.exists(source_path):
+            root_destination_path = os.path.join(static_page_worktree, os.path.basename(relative_path))
+            shutil.copy2(source_path, root_destination_path)
+            if os.path.basename(relative_path) != "favicon.png":
+                destination_path = os.path.join(static_export_assets_dir, os.path.basename(relative_path))
+                os.makedirs(os.path.dirname(destination_path), exist_ok=True)
+                shutil.copy2(source_path, destination_path)
+
+    uploads_source = os.path.join(BASE_DIR, "static", "uploads")
+    uploads_destination = os.path.join(static_export_assets_dir, "uploads")
+    if os.path.isdir(uploads_source):
+        os.makedirs(uploads_destination, exist_ok=True)
+        for filename in os.listdir(uploads_source):
+            source_path = os.path.join(uploads_source, filename)
+            if os.path.isfile(source_path):
+                shutil.copy2(source_path, os.path.join(uploads_destination, filename))
+
+    _git_run(["git", "add", "-A"], cwd=static_page_worktree)
+
+    commit_message = "manual public site export" if manual else "auto public site export"
+    commit_timestamp = datetime.now(timezone.utc).replace(microsecond=0).isoformat()
+    commit_env = {
+        "GIT_AUTHOR_DATE": commit_timestamp,
+        "GIT_COMMITTER_DATE": commit_timestamp,
+    }
+    commit_args = ["git", "commit", "--allow-empty", "-m", commit_message]
+    if not manual:
+        status = _git_run(["git", "status", "--porcelain"], cwd=static_page_worktree)
+        if status.stdout.strip():
+            commit_args = ["git", "commit", "-m", commit_message]
+            commit_env = None
+
+    commit_result = _git_run_with_env(commit_args, cwd=static_page_worktree, extra_env=commit_env)
+    if commit_result.returncode != 0:
+        raise RuntimeError(commit_result.stderr.strip() or commit_result.stdout.strip() or "Failed to commit static page export")
+
+    commit_hash = _git_run(["git", "rev-parse", "HEAD"], cwd=static_page_worktree).stdout.strip()
+    if not commit_hash:
+        raise RuntimeError("Could not determine the static page commit hash")
+
+    actual_commit_timestamp = _get_commit_timestamp(commit_hash, static_page_worktree)
+    if manual and actual_commit_timestamp != commit_timestamp:
+        raise RuntimeError("The static page export commit timestamp did not match the manual export timestamp")
+
+    _git_run(["git", "push", "-u", "origin", STATIC_PAGE_BRANCH], cwd=static_page_worktree)
+    remote_hash = _get_remote_branch_hash(static_page_worktree, STATIC_PAGE_BRANCH)
+    if remote_hash != commit_hash:
+        raise RuntimeError("The static page branch push did not land on the expected commit")
+
+    return {
+        "commit_hash": commit_hash,
+        "commit_timestamp": actual_commit_timestamp,
+        "branch": STATIC_PAGE_BRANCH,
+    }
+
+
 def commit_and_push(message):
     safe_message = re.sub(r"\s+", " ", (message or "updated menu")).strip()
     if not safe_message:
@@ -197,6 +317,20 @@ def commit_and_push(message):
 
     _git_run(["git", "commit", "-m", safe_message])
     _git_run(["git", "push"])
+
+
+@app.route("/export-static-page", methods=["POST"])
+def export_static_page():
+    try:
+        result = export_static_site(manual=True)
+        return jsonify({
+            "ok": True,
+            "message": f"Public site updated and pushed to {result['branch']} at {result['commit_timestamp']}",
+            "commit_hash": result["commit_hash"],
+            "commit_timestamp": result["commit_timestamp"],
+        })
+    except Exception as exc:
+        return jsonify({"ok": False, "message": str(exc)}), 500
 
 def slugify(text):
     slug = re.sub(r"[^a-z0-9]+", "-", text.lower()).strip("-")

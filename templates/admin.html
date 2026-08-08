@@ -18,6 +18,11 @@
     <div class="topbar-links">
       <a class="btn btn-primary" href="{{ url_for('menu') }}" target="_blank" rel="noopener">Printable Menu &rarr;</a>
       <a class="btn btn-primary" href="{{ url_for('web_menu') }}" target="_blank" rel="noopener">Website Menu &rarr;</a>
+      <button class="btn" type="button" id="manual-export-button"
+              data-export-url="{{ url_for('export_static_page') }}"
+              data-confirm="This will update the public site and should only be used if automatic pushing isn't working. Continue?">
+        Export Public Site
+      </button>
     </div>
   </div>
 
