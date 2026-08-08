@@ -18,6 +18,7 @@ UPLOAD_DIR = os.path.join(BASE_DIR, "static", "uploads")
 ALLOWED_EXT = {"png", "jpg", "jpeg", "gif", "webp"}
 STATIC_PAGE_BRANCH = "static-page"
 STATIC_PAGE_WORKTREE_FALLBACK = os.path.join(os.path.dirname(BASE_DIR), ".toe-menu-static-page-worktree")
+STATIC_PAGE_PRESERVED_FILES = {"CNAME", "README", "README.md"}
 GIT_COMMAND_TIMEOUT = 60
 GIT_ENV = {
     "GIT_TERMINAL_PROMPT": "0",
@@ -185,7 +186,7 @@ def publish_static_site(commit_message):
         static_export_assets_dir = os.path.join(static_page_worktree, "assets")
 
         for entry in os.listdir(static_page_worktree):
-            if entry == ".git":
+            if entry == ".git" or entry in STATIC_PAGE_PRESERVED_FILES:
                 continue
             _remove_path(os.path.join(static_page_worktree, entry))
 
@@ -264,7 +265,7 @@ def export_static_site(manual=False):
     static_export_assets_dir = os.path.join(static_page_worktree, "assets")
 
     for entry in os.listdir(static_page_worktree):
-        if entry == ".git":
+        if entry == ".git" or entry in STATIC_PAGE_PRESERVED_FILES:
             continue
         _remove_path(os.path.join(static_page_worktree, entry))
 
