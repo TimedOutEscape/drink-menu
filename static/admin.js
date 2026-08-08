@@ -33,19 +33,47 @@ function showPendingToast(message) {
   return toast;
 }
 
-function settleToast(toast, message, isError) {
+function dismissToast(toast) {
   if (!toast) return;
-  toast.classList.remove("toast-saving", "toast-error");
+  toast.classList.remove("toast-show");
+  setTimeout(() => toast.remove(), 300);
+}
+
+function settleToast(toast, message, isError, options = {}) {
+  if (!toast) return;
+  toast.classList.remove("toast-saving", "toast-error", "toast-closable");
   if (isError) {
     toast.classList.add("toast-error");
   } else {
     toast.classList.add("toast-saved");
   }
-  toast.textContent = message;
-  setTimeout(() => {
-    toast.classList.remove("toast-show");
-    setTimeout(() => toast.remove(), 300);
-  }, 1400);
+
+  const durationMs = Number.isFinite(options.durationMs) ? options.durationMs : 1400;
+  const closable = Boolean(options.closable);
+
+  toast.textContent = "";
+  if (closable) {
+    toast.classList.add("toast-closable");
+    const text = document.createElement("span");
+    text.className = "toast-message";
+    text.textContent = message;
+
+    const closeButton = document.createElement("button");
+    closeButton.type = "button";
+    closeButton.className = "toast-close";
+    closeButton.setAttribute("aria-label", "Close message");
+    closeButton.textContent = "X";
+    closeButton.addEventListener("click", () => dismissToast(toast));
+
+    toast.appendChild(text);
+    toast.appendChild(closeButton);
+  } else {
+    toast.textContent = message;
+  }
+
+  if (durationMs > 0) {
+    setTimeout(() => dismissToast(toast), durationMs);
+  }
 }
 
 async function handleAjaxSubmit(e) {
@@ -131,7 +159,10 @@ async function handleManualExport(button) {
     }
     settleToast(pendingToast, payload.message || "Public site updated and pushed", false);
   } catch (err) {
-    settleToast(pendingToast, err.message || "Public site export failed", true);
+    settleToast(pendingToast, err.message || "Public site export failed", true, {
+      durationMs: 30000,
+      closable: true,
+    });
   } finally {
     button.disabled = false;
     button.textContent = originalText;

@@ -221,7 +221,7 @@ def publish_static_site(commit_message):
             return
 
         _git_run(["git", "commit", "-m", commit_message], cwd=static_page_worktree)
-        _git_run(["git", "push", "-u", "origin", STATIC_PAGE_BRANCH], cwd=static_page_worktree)
+        _git_run(["git", "push", "--force", "-u", "origin", STATIC_PAGE_BRANCH], cwd=static_page_worktree)
         _ensure_static_page_upstream(static_page_worktree)
     except Exception as exc:
         print(f"Static page publish failed: {exc}")
@@ -323,7 +323,7 @@ def export_static_site(manual=False):
         raise RuntimeError("The static page export commit timestamp did not match the manual export timestamp")
 
     _log_git(f"pushing static-page commit {commit_hash}")
-    _git_run(["git", "push", "-u", "origin", STATIC_PAGE_BRANCH], cwd=static_page_worktree)
+    _git_run(["git", "push", "--force", "-u", "origin", STATIC_PAGE_BRANCH], cwd=static_page_worktree)
     _ensure_static_page_upstream(static_page_worktree)
     _log_git(f"verifying remote branch tip for {STATIC_PAGE_BRANCH}")
     remote_hash = _get_remote_branch_hash(static_page_worktree, STATIC_PAGE_BRANCH)

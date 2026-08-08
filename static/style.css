@@ -345,6 +345,35 @@ input[type="text"], input[type="file"] {
   pointer-events: none;
 }
 
+.toast-closable {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+}
+
+.toast-message {
+  flex: 1;
+  text-align: left;
+}
+
+.toast-close {
+  border: 0;
+  background: rgba(255, 255, 255, 0.22);
+  color: inherit;
+  width: 1.65rem;
+  height: 1.65rem;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.toast-close:hover {
+  background: rgba(255, 255, 255, 0.34);
+}
+
 .toast {
   background: #2f9e44;
   color: #fff;
