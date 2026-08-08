@@ -222,6 +222,7 @@ def publish_static_site(commit_message):
 
         _git_run(["git", "commit", "-m", commit_message], cwd=static_page_worktree)
         _git_run(["git", "push", "-u", "origin", STATIC_PAGE_BRANCH], cwd=static_page_worktree)
+        _ensure_static_page_upstream(static_page_worktree)
     except Exception as exc:
         print(f"Static page publish failed: {exc}")
 
@@ -240,6 +241,20 @@ def _get_remote_branch_hash(cwd, branch):
     if not reference:
         raise RuntimeError(f"Remote branch {branch} was not found after push")
     return reference.split()[0]
+
+
+def _ensure_static_page_upstream(static_page_worktree):
+    expected_upstream = f"origin/{STATIC_PAGE_BRANCH}"
+    result = _git_run(["git", "rev-parse", "--abbrev-ref", "--symbolic-full-name", "@{u}"], cwd=static_page_worktree)
+    current_upstream = result.stdout.strip() if result.returncode == 0 else ""
+    if current_upstream == expected_upstream:
+        _log_git(f"upstream for {STATIC_PAGE_BRANCH} already configured as {expected_upstream}")
+        return
+
+    _log_git(f"setting upstream for {STATIC_PAGE_BRANCH} to {expected_upstream}")
+    set_result = _git_run(["git", "branch", "--set-upstream-to", expected_upstream, STATIC_PAGE_BRANCH], cwd=static_page_worktree)
+    if set_result.returncode != 0:
+        raise RuntimeError(set_result.stderr.strip() or set_result.stdout.strip() or f"Failed to set upstream for {STATIC_PAGE_BRANCH}")
 
 
 def export_static_site(manual=False):
@@ -309,6 +324,7 @@ def export_static_site(manual=False):
 
     _log_git(f"pushing static-page commit {commit_hash}")
     _git_run(["git", "push", "-u", "origin", STATIC_PAGE_BRANCH], cwd=static_page_worktree)
+    _ensure_static_page_upstream(static_page_worktree)
     _log_git(f"verifying remote branch tip for {STATIC_PAGE_BRANCH}")
     remote_hash = _get_remote_branch_hash(static_page_worktree, STATIC_PAGE_BRANCH)
     if remote_hash != commit_hash:
