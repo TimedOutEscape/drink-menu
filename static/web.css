@@ -298,6 +298,7 @@ body.modal-open {
   font-size: 0.95rem;
   color: var(--ink);
   line-height: 1.55;
+  white-space: pre-line;
 }
 
 @media (max-width: 719px) {
