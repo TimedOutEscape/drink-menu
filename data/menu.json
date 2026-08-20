@@ -225,20 +225,20 @@
           "image": "label_51688634.png"
         },
         {
-          "id": "9e0b1568",
-          "name": "Water - 16.9 oz",
-          "price": "1.00",
-          "description": "Just water!",
-          "extended_description": "",
-          "image": "label_3993ec7b.jpeg"
-        },
-        {
           "id": "40f9201c",
           "name": "Diet Coke - 12 oz",
           "price": "2.00",
           "description": "Crisp, refreshing, and zero-calorie cola with that unmistakable, lighter Diet Coke fizz.",
           "extended_description": "Diet Coke is a popular sugar-free, low-calorie carbonated soft drink introduced by The Coca-Cola Company in 1982. It features zero sugar, zero calories, and a unique, lighter flavor profile with a crisp bite driven by artificial sweeteners like aspartame",
           "image": "label_d5b5d08f.png"
+        },
+        {
+          "id": "9e0b1568",
+          "name": "Water - 16.9 oz",
+          "price": "1.00",
+          "description": "Just water!",
+          "extended_description": "",
+          "image": "label_3993ec7b.jpeg"
         },
         {
           "id": "fe9e7cd3",
