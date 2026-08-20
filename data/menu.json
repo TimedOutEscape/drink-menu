@@ -21,14 +21,6 @@
       "name": "Beer - Imports",
       "drinks": [
         {
-          "id": "bdc7ed65",
-          "name": "Corona Extra - 12 oz",
-          "price": "6.00",
-          "description": "Even-keeled cerveza with fruity-honey aromas and a touch of malt.",
-          "extended_description": "Corona Extra is an iconic 4.6% ABV pale Mexican lager introduced in 1925. Brewed with water, malted barley, hops, and corn, it features a light body, crisp and refreshing taste with subtle fruit and honey malt notes, and a clean finish.",
-          "image": "label_1ca410a6.jpg"
-        },
-        {
           "id": "f6cbac7b",
           "name": "Corona Premier - 12 oz - Low Carb",
           "price": "6.00",
