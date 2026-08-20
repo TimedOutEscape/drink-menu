@@ -171,20 +171,20 @@
       "name": "Seltzer/Cider",
       "drinks": [
         {
-          "id": "e1968700",
-          "name": "Truly Strawberry Lemonade - 12 oz",
-          "price": "5.00",
-          "description": "Blend of sweet strawberry lemonade and refreshing hard seltzer.",
-          "extended_description": "Truly Strawberry Lemonade is a popular hard seltzer flavor from Truly Hard Seltzer that blends sweet lemonade, juicy strawberry flavor, and clean hard seltzer. Each standard 12-ounce can contains 5% ABV, 100 calories, 1 gram of sugar, and 3 grams of carbohydrates, and the drink is gluten-free.",
-          "image": "label_afe8d504.png"
-        },
-        {
           "id": "503507e4",
           "name": "Blake's Original Apple Cider",
           "price": "7.00",
           "description": "The original play on what we think a tasty apple cider should be, uncomplicated, slightly sweet, crisp and clean with ripe apple aroma.",
           "extended_description": "Blake's Hard Cider describes its Original Classic Apple as an uncomplicated, slightly sweet, crisp, and clean hard cider with a ripe apple aroma. It is an easy-drinking, sessionable 5.5% ABV classic made with 100% fresh-pressed apples.",
           "image": "label_cdf7b866.jpeg"
+        },
+        {
+          "id": "e1968700",
+          "name": "Truly Strawberry Lemonade - 12 oz",
+          "price": "5.00",
+          "description": "Blend of sweet strawberry lemonade and refreshing hard seltzer.",
+          "extended_description": "Truly Strawberry Lemonade is a popular hard seltzer flavor from Truly Hard Seltzer that blends sweet lemonade, juicy strawberry flavor, and clean hard seltzer. Each standard 12-ounce can contains 5% ABV, 100 calories, 1 gram of sugar, and 3 grams of carbohydrates, and the drink is gluten-free.",
+          "image": "label_afe8d504.png"
         },
         {
           "id": "bd3bdbe3",
