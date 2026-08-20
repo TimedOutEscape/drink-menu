@@ -201,6 +201,14 @@
           "description": "The original play on what we think a tasty apple cider should be, uncomplicated, slightly sweet, crisp and clean with ripe apple aroma.",
           "extended_description": "Blake's Hard Cider describes its Original Classic Apple as an uncomplicated, slightly sweet, crisp, and clean hard cider with a ripe apple aroma. It is an easy-drinking, sessionable 5.5% ABV classic made with 100% fresh-pressed apples.",
           "image": "label_cdf7b866.jpeg"
+        },
+        {
+          "id": "bd3bdbe3",
+          "name": "Blake's Triple Jam",
+          "price": "7.00",
+          "description": "Bursting with strawberries, blackberries, and raspberries, this semi-sweet captivates the nuance of our farm, in each and every taste.",
+          "extended_description": "is a semi-sweet, gluten-free hard cider crafted by Blake's Hard Cider Co. in Armada, Michigan. It features a 6.5% ABV and a vibrant three-berry flavor profile packed with real strawberries, blackberries, and raspberries.",
+          "image": "label_50bad238.jpeg"
         }
       ]
     },
