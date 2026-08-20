@@ -217,20 +217,20 @@
       "name": "Soda / Water",
       "drinks": [
         {
-          "id": "9e0b1568",
-          "name": "Water - 16.9 oz",
-          "price": "1.00",
-          "description": "Just water!",
-          "extended_description": "",
-          "image": "label_3993ec7b.jpeg"
-        },
-        {
           "id": "876b6241",
           "name": "Coke - 12 oz",
           "price": "2.00",
           "description": "The authentic, crisp, and refreshing cola taste you love, served ice-cold with a familiar, bubbly fizz.",
           "extended_description": "Sweet and sugary: Driven by a rich base of caramelized sugar or high-fructose corn syrup.\r\nSpicy and warm notes: Features distinct undertones of vanilla, cinnamon, and nutmeg.\r\nCitrus brightness: Includes subtle hints of lemon, orange, or lime oils that add a slight tang.\r\nFizzy texture: Delivers a sharp, bubbly pop and effervescent mouthfeel from carbon.",
           "image": "label_51688634.png"
+        },
+        {
+          "id": "9e0b1568",
+          "name": "Water - 16.9 oz",
+          "price": "1.00",
+          "description": "Just water!",
+          "extended_description": "",
+          "image": "label_3993ec7b.jpeg"
         },
         {
           "id": "fe9e7cd3",
