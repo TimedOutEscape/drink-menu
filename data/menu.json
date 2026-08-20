@@ -179,20 +179,20 @@
           "image": "label_cdf7b866.jpeg"
         },
         {
-          "id": "e1968700",
-          "name": "Truly Strawberry Lemonade - 12 oz",
-          "price": "5.00",
-          "description": "Blend of sweet strawberry lemonade and refreshing hard seltzer.",
-          "extended_description": "Truly Strawberry Lemonade is a popular hard seltzer flavor from Truly Hard Seltzer that blends sweet lemonade, juicy strawberry flavor, and clean hard seltzer. Each standard 12-ounce can contains 5% ABV, 100 calories, 1 gram of sugar, and 3 grams of carbohydrates, and the drink is gluten-free.",
-          "image": "label_afe8d504.png"
-        },
-        {
           "id": "bd3bdbe3",
           "name": "Blake's Triple Jam",
           "price": "7.00",
           "description": "Bursting with strawberries, blackberries, and raspberries, this semi-sweet captivates the nuance of our farm, in each and every taste.",
           "extended_description": "is a semi-sweet, gluten-free hard cider crafted by Blake's Hard Cider Co. in Armada, Michigan. It features a 6.5% ABV and a vibrant three-berry flavor profile packed with real strawberries, blackberries, and raspberries.",
           "image": "label_50bad238.jpeg"
+        },
+        {
+          "id": "e1968700",
+          "name": "Truly Strawberry Lemonade - 12 oz",
+          "price": "5.00",
+          "description": "Blend of sweet strawberry lemonade and refreshing hard seltzer.",
+          "extended_description": "Truly Strawberry Lemonade is a popular hard seltzer flavor from Truly Hard Seltzer that blends sweet lemonade, juicy strawberry flavor, and clean hard seltzer. Each standard 12-ounce can contains 5% ABV, 100 calories, 1 gram of sugar, and 3 grams of carbohydrates, and the drink is gluten-free.",
+          "image": "label_afe8d504.png"
         },
         {
           "id": "3864d821",
