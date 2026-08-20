@@ -49,6 +49,14 @@
           "description": "IPA known for its juicy, fruit-forward flavors and smooth, silky mouthfeel.",
           "extended_description": "Sierra Nevada brews Hazy Little Thing with the finest ingredients for the purest quality in every sip.  Brewed to be juicy, but not sweet. Hoppy, but not bitter. Velvety smooth and handcrafted with Citra and Mosaic hops.",
           "image": "label_41ff6f0c.jpeg"
+        },
+        {
+          "id": "f82356aa",
+          "name": "Pilot Puck Off Pilsner",
+          "price": "9.00",
+          "description": "",
+          "extended_description": "Puck Off Pilsner is a 5.5% ABV pale, crisp, and refreshing lager brewed by Pilot Brewing in Charlotte, North Carolina. Crafted as the official hockey season beer for the Charlotte Checkers, it features a neutral malt backbone, noticeable hop bitterness, 32 IBUs, and a gluten-reduced recipe.",
+          "image": "label_935ede70.jpg"
         }
       ]
     },
