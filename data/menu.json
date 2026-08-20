@@ -95,20 +95,20 @@
       "name": "Wine - White",
       "drinks": [
         {
-          "id": "3348e817",
-          "name": "Cavit Pinot Grigio - 187 ml",
-          "price": "8.00",
-          "description": "Light refreshing flavors of citrus and green apple",
-          "extended_description": "Bright straw gold color. On the nose is delicate and pleasing with floral and fruit scents. The palate is dry, light and crisp. A wonderful aperitif and equally splendid with pasta in cream sauces, risottos, veal, chicken and fresh dishes. \r\nWine Enthusiast: 87\r\nWine Spectator: 88",
-          "image": "label_993be4c1.png"
-        },
-        {
           "id": "234b6517",
           "name": "Bonanza Chardonnay - 375 ml",
           "price": "19.00",
           "description": "Fruit-forward California white\u00a0emphasizing crisp melon, fresh floral aromas, and vibrant acidity",
           "extended_description": "Nose: Aromas of light melon, fresh white flowers, green apple, and crisp pear with subtle citrus and vanilla hints.  Palate: Medium-bodied with flavors of ripe peach, tropical fruit, and lemon curd, rounded out by a clean, vibrant acidity.  Finish: Smooth, crisp, and refreshing with a clean, lingering citrus-zest close.  \r\nWine Spectator: 90 \r\nWine Enthusiast: 88",
           "image": "label_f75228ae.jpg"
+        },
+        {
+          "id": "3348e817",
+          "name": "Cavit Pinot Grigio - 187 ml",
+          "price": "8.00",
+          "description": "Light refreshing flavors of citrus and green apple",
+          "extended_description": "Bright straw gold color. On the nose is delicate and pleasing with floral and fruit scents. The palate is dry, light and crisp. A wonderful aperitif and equally splendid with pasta in cream sauces, risottos, veal, chicken and fresh dishes. \r\nWine Enthusiast: 87\r\nWine Spectator: 88",
+          "image": "label_993be4c1.png"
         },
         {
           "id": "801dc9ef",
