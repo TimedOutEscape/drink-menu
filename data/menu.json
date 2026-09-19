@@ -169,7 +169,16 @@
     {
       "id": "47e2f5c2",
       "name": "Sake",
-      "drinks": []
+      "drinks": [
+        {
+          "id": "dbb6bf59",
+          "name": "Joto",
+          "price": "21.00",
+          "description": "Joto Nigori is a junmai, which lends a dry, earthy balance to the milky, coconutty fruit notes that are typical of the nigori style.",
+          "extended_description": "Joto Nigori is brewed by the Nakao Brewery, which was founded in 1871 and is now managed by the 6th generation of the family. The brewery has pioneered revolutionary techniques and ingredients in the sake industry. Unlike most nigoris, which are syrupy sweet, Joto Nigori shows depth and earthy notes, which make it more food-friendly and sophisticated.",
+          "image": "label_13e9c387.jpeg"
+        }
+      ]
     },
     {
       "id": "af7ad1dc",
