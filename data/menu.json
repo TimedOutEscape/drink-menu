@@ -167,6 +167,11 @@
       ]
     },
     {
+      "id": "47e2f5c2",
+      "name": "Sake",
+      "drinks": []
+    },
+    {
       "id": "af7ad1dc",
       "name": "Seltzer/Cider",
       "drinks": [
@@ -211,11 +216,6 @@
           "image": "label_09a4f9dc.jpeg"
         }
       ]
-    },
-    {
-      "id": "47e2f5c2",
-      "name": "Sake",
-      "drinks": []
     },
     {
       "id": "836d0382",
