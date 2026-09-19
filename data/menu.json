@@ -213,6 +213,11 @@
       ]
     },
     {
+      "id": "47e2f5c2",
+      "name": "Sake",
+      "drinks": []
+    },
+    {
       "id": "836d0382",
       "name": "Soda / Water",
       "drinks": [
@@ -249,11 +254,6 @@
           "image": "label_3993ec7b.jpeg"
         }
       ]
-    },
-    {
-      "id": "47e2f5c2",
-      "name": "Sake",
-      "drinks": []
     }
   ]
 }
